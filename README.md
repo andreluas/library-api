@@ -7,5 +7,5 @@
 </h1>
 
 <h3 align="center">
-    Repositório criado para estudos Springboot Java
+    Repositório criado para estudos CRUD Springboot Java
 </h2>
