@@ -6,6 +6,8 @@ import com.systembook.systembookws.model.Book;
 import com.systembook.systembookws.service.BookServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,27 +25,28 @@ public class BookController {
     BookServiceImpl service;
 
     @GetMapping
-    public List<Book> listBooks() {
-        return service.findBooks();
+    public ResponseEntity<List<Book>> listBooks() {
+        return new ResponseEntity<>(service.findBooks(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/{id}")
-    public Book findBookId(@PathVariable String id) {
-        return service.findId(id);
+    public ResponseEntity<Book> findBookId(@PathVariable String id) {
+        return new ResponseEntity<>(service.findId(id), HttpStatus.FOUND);
     }
 
     @PostMapping
-    public Book addBook(@RequestBody Book book) {
-        return service.saveBook(book);
+    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+        return new ResponseEntity<>(service.saveBook(book), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteBook(@PathVariable String id) {
+    public ResponseEntity<Void> deleteBook(@PathVariable String id) {
         service.deleteBook(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(value = "/{id}")
-    public Book updateBookId(@PathVariable String id, @RequestBody Book book) {
-        return service.updateBook(id, book);
+    public ResponseEntity<Book> updateBookId(@PathVariable String id, @RequestBody Book book) {
+        return new ResponseEntity<>(service.updateBook(id, book), HttpStatus.ACCEPTED);
     }
 } 
