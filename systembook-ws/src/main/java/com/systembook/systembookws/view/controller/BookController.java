@@ -1,4 +1,4 @@
-package com.systembook.systembookws.controller;
+package com.systembook.systembookws.view.controller;
 
 import java.util.List;
 import java.util.Optional;
