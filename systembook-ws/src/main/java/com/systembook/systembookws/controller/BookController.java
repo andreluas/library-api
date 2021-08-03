@@ -1,6 +1,7 @@
 package com.systembook.systembookws.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.systembook.systembookws.model.Book;
 import com.systembook.systembookws.service.BookServiceImpl;
@@ -31,7 +32,13 @@ public class BookController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Book> findBookId(@PathVariable String id) {
-        return new ResponseEntity<>(service.findId(id), HttpStatus.FOUND);
+        Optional<Book> opBook = service.findId(id);
+
+        if(opBook.isPresent()) {
+            return new ResponseEntity<>(opBook.get(), HttpStatus.FOUND);
+        }
+    
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping

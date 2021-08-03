@@ -1,6 +1,7 @@
 package com.systembook.systembookws.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.systembook.systembookws.model.Book;
 import com.systembook.systembookws.repository.BookRepository;
@@ -25,8 +26,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book findId(String id) {
-        return repository.findById(id).get();
+    public Optional<Book> findId(String id) {
+        return repository.findById(id);
     }
 
     @Override
