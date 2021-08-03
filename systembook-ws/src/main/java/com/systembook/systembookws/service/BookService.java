@@ -10,5 +10,5 @@ public interface BookService {
     Book saveBook(Book book);
     Optional<Book> findId(String id);
     void deleteBook(String id);
-    Book updateBook(String id, Book book);
+    Optional<Book> updateBook(String id, Book book);
 }

@@ -36,8 +36,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateBook(String id, Book book) {
-        book.setId(id);
-        return repository.save(book);
+    public Optional<Book> updateBook(String id, Book book) {
+        Optional<Book> opBook = repository.findById(id); 
+ 
+        if(opBook.isPresent()) {
+            book.setId(id);
+            return Optional.of(repository.save(book));
+        }
+
+        return Optional.empty();
     }    
 }
