@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.systembook.systembookws.model.Book;
 import com.systembook.systembookws.service.BookServiceImpl;
+import com.systembook.systembookws.shared.BookDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,13 +27,13 @@ public class BookController {
     BookServiceImpl service;
 
     @GetMapping
-    public ResponseEntity<List<Book>> listBooks() {
+    public ResponseEntity<List<BookDto>> listBooks() {
         return new ResponseEntity<>(service.findBooks(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Book> findBookId(@PathVariable String id) {
-        Optional<Book> opBook = service.findId(id);
+    public ResponseEntity<BookDto> findBookId(@PathVariable String id) {
+        Optional<BookDto> opBook = service.findId(id);
 
         if(opBook.isPresent()) {
             return new ResponseEntity<>(opBook.get(), HttpStatus.FOUND);
@@ -42,7 +43,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+    public ResponseEntity<BookDto> addBook(@RequestBody BookDto book) {
         return new ResponseEntity<>(service.saveBook(book), HttpStatus.CREATED);
     }
 
@@ -53,8 +54,8 @@ public class BookController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Book> updateBookId(@PathVariable String id, @RequestBody Book book) {
-        Optional<Book> opBook = service.updateBook(id, book);
+    public ResponseEntity<BookDto> updateBookId(@PathVariable String id, @RequestBody BookDto book) {
+        Optional<BookDto> opBook = service.updateBook(id, book);
 
         if(opBook.isPresent()) {
             return new ResponseEntity<>(opBook.get(), HttpStatus.ACCEPTED);
