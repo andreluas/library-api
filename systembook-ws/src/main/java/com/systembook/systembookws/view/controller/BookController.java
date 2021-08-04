@@ -3,7 +3,6 @@ package com.systembook.systembookws.view.controller;
 import java.util.List;
 import java.util.Optional;
 
-import com.systembook.systembookws.model.Book;
 import com.systembook.systembookws.service.BookServiceImpl;
 import com.systembook.systembookws.shared.BookDto;
 
