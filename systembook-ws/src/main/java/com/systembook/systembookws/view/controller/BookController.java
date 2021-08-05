@@ -2,10 +2,13 @@ package com.systembook.systembookws.view.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.systembook.systembookws.service.BookServiceImpl;
 import com.systembook.systembookws.shared.BookDto;
+import com.systembook.systembookws.view.model.BookResponse;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +29,12 @@ public class BookController {
     BookServiceImpl service;
 
     @GetMapping
-    public ResponseEntity<List<BookDto>> listBooks() {
-        return new ResponseEntity<>(service.findBooks(), HttpStatus.ACCEPTED);
+    public ResponseEntity<List<BookResponse>> listBooks() {
+        List<BookDto> bookDto = service.findBooks();
+        List<BookResponse> bookResponse = bookDto.stream()
+            .map(b -> new ModelMapper().map(b, BookResponse.class))
+            .collect(Collectors.toList());  
+        return new ResponseEntity<>(bookResponse, HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/{id}")
