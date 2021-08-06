@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import com.systembook.systembookws.service.BookServiceImpl;
 import com.systembook.systembookws.shared.BookDto;
+import com.systembook.systembookws.view.model.BookRequestObs;
 import com.systembook.systembookws.view.model.BookResponse;
+import com.systembook.systembookws.view.model.BookResponseObs;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +51,13 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookDto> addBook(@RequestBody BookDto book) {
-        return new ResponseEntity<>(service.saveBook(book), HttpStatus.CREATED);
+    public ResponseEntity<BookResponseObs> addBook(@RequestBody BookRequestObs book) {
+        ModelMapper bookMap = new ModelMapper();
+        BookDto bookDto = bookMap.map(book, BookDto.class);
+        bookDto = service.saveBook(bookDto);
+        BookResponseObs bookResponse = bookMap.map(bookDto, BookResponseObs.class);
+
+        return new ResponseEntity<>(bookResponse, HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")

@@ -9,6 +9,7 @@ public class Book {
     private String id;
     private String nameBook;
     private String authorBook;
+    private String observacoes;
 
     //#region
     public String getId() {
@@ -33,6 +34,14 @@ public class Book {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
     }
     //#endregion  
 }
